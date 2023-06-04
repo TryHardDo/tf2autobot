@@ -985,7 +985,7 @@ export default class Bot {
                         void this.initializeSchema().asCallback(callback);
                     },
                     (callback: (err?) => void): void => {
-                        log.info('Initializing pricelist...');
+                        log.info('Settting up pricelist...');
 
                         this.pricelist = new Pricelist(this.priceSource, this.schema, this.options, this);
                         this.addListener(
@@ -1023,16 +1023,16 @@ export default class Bot {
                                     void this.inventoryManager.getInventory.fetch().asCallback(callback);
                                 },
                                 (callback): void => {
-                                    log.debug('Initializing bptf-listings...');
+                                    log.debug('Setting up Backpack.tf listing elements...');
                                     this.userID = this.bptf._getUserID();
                                     this.listingManager = new ListingManager({
                                         token: this.options.bptfAccessToken,
                                         userID: this.userID,
                                         userAgent:
-                                            'TF2Autobot' +
+                                            'TryTrading' +
                                             (this.options.useragentHeaderCustom !== ''
                                                 ? ` - ${this.options.useragentHeaderCustom}`
-                                                : ' - Run your own bot for free'),
+                                                : ' - A customized tf2autobot fork!'),
                                         schema: this.schema
                                     });
 

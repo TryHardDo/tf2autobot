@@ -15,9 +15,9 @@ export interface PricerOptions {
 export default interface IPricer {
     getOptions(): PricerOptions;
 
-    requestCheck(sku: string): Promise<RequestCheckResponse>;
+    requestCheck(sku: string, itemName: string): Promise<RequestCheckResponse>;
 
-    getPrice(sku: string): Promise<GetItemPriceResponse>;
+    getPrice(sku: string, itemName: string): Promise<GetItemPriceResponse>;
 
     getPricelist(): Promise<GetPricelistResponse>;
 
@@ -32,8 +32,8 @@ export default interface IPricer {
     bindHandlePriceEvent(onPriceChange: (item: GetItemPriceResponse) => void): void;
 }
 
-export type RequestCheckFn = (sku: string) => Promise<RequestCheckResponse>;
-export type GetPrice = (sku: string) => Promise<GetItemPriceResponse>;
+export type RequestCheckFn = (sku: string, itemName: string) => Promise<RequestCheckResponse>;
+export type GetPrice = (sku: string, itemName: string) => Promise<GetItemPriceResponse>;
 
 export interface GetPricelistResponse {
     currency?: string | null;

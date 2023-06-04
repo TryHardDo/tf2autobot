@@ -57,7 +57,7 @@ export default class PriceCheckQueue {
         }
 
         try {
-            const body = await this.requestCheck(sku);
+            const body = await this.requestCheck(sku, this.bot.schema.getName(SKU.fromString(sku)));
             let name: string;
             if (body.name) {
                 name = body.name;

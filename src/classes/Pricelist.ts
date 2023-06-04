@@ -422,15 +422,17 @@ export default class Pricelist extends EventEmitter {
 
         if (entry.autoprice && !entry.isPartialPriced && !isBulk) {
             // skip this part if autoprice is false and/or isPartialPriced is true
-            const price: GetItemPriceResponse = await this.priceSource.getPrice(entry.sku).catch(err => {
-                throw new Error(
-                    `Unable to get current prices for ${entry.sku}: ${
-                        (err as ErrorRequest).body && (err as ErrorRequest).body.message
-                            ? (err as ErrorRequest).body.message
-                            : (err as ErrorRequest).message
-                    }`
-                );
-            });
+            const price: GetItemPriceResponse = await this.priceSource
+                .getPrice(entry.sku, this.bot.schema.getName(SKU.fromString(entry.sku), false))
+                .catch(err => {
+                    throw new Error(
+                        `Unable to get current prices for ${entry.sku}: ${
+                            (err as ErrorRequest).body && (err as ErrorRequest).body.message
+                                ? (err as ErrorRequest).body.message
+                                : (err as ErrorRequest).message
+                        }`
+                    );
+                });
 
             const newPrices = {
                 buy: new Currencies(price.buy),
@@ -526,7 +528,9 @@ export default class Pricelist extends EventEmitter {
 
     async getItemPrices(sku: string): Promise<ParsedPrice | null> {
         try {
-            return await this.priceSource.getPrice(sku).then(response => new ParsedPrice(response));
+            return await this.priceSource
+                .getPrice(sku, this.bot.schema.getName(SKU.fromString(sku)))
+                .then(response => new ParsedPrice(response));
         } catch (err) {
             const errStringify = JSON.stringify(err);
             const errMessage = errStringify === '' ? (err as Error)?.message : errStringify;
@@ -801,7 +805,7 @@ export default class Pricelist extends EventEmitter {
         const entryKey = this.getPrice({ priceKey: '5021;6', onlyEnabled: false });
 
         return this.priceSource
-            .getPrice('5021;6')
+            .getPrice('5021;6', 'Mann Co. Supply Crate Key')
             .then(keyPrices => {
                 log.debug('Got key price');
 
@@ -931,9 +935,9 @@ export default class Pricelist extends EventEmitter {
         clearTimeout(this.retryGetKeyPrices);
 
         return this.priceSource
-            .getPrice('5021;6')
+            .getPrice('5021;6', 'Mann Co. Supply Crate Key')
             .then(keyPrices => {
-                log.debug('✅ Got current key prices, updating...');
+                log.debug('✅ Fresh key price arrived! Updating details...');
 
                 const updatedKeyPrices = {
                     buy: new Currencies(keyPrices.buy),

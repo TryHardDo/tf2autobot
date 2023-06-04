@@ -29,8 +29,8 @@ export default class RequestCommands {
             return this.bot.sendMessage(steamID, `❌ "sku" should not be empty or wrong format.`);
         }
 
+        const item = getItemFromParams(steamID, params, this.bot);
         if (sku === undefined) {
-            const item = getItemFromParams(steamID, params, this.bot);
             if (item === null) {
                 return;
             }
@@ -41,7 +41,7 @@ export default class RequestCommands {
         }
 
         void this.priceSource
-            .requestCheck(sku)
+            .requestCheck(sku, this.bot.schema.getName(SKU.fromString(sku), false))
             .then((body: RequestCheckResponse) => {
                 if (!body) {
                     this.bot.sendMessage(steamID, '❌ Error while requesting price check (returned null/undefined)');
@@ -52,7 +52,7 @@ export default class RequestCommands {
                     } else {
                         name = this.bot.schema.getName(SKU.fromString(sku));
                     }
-                    this.bot.sendMessage(steamID, `✅ Requested pricecheck for ${name}, the item will be checked.`);
+                    this.bot.sendMessage(steamID, `✅ Price request for item ${name} was sent to the pricer!`);
                 }
             })
             .catch((err: ErrorRequest) => {
@@ -118,7 +118,7 @@ export default class RequestCommands {
 
         const name = this.bot.schema.getName(SKU.fromString(sku));
         try {
-            const price = await this.priceSource.getPrice(sku);
+            const price = await this.priceSource.getPrice(sku, name);
             const currBuy = new Currencies(price.buy);
             const currSell = new Currencies(price.sell);
 
@@ -172,7 +172,7 @@ class Pricecheck {
     async executeCheck(): Promise<void> {
         await timersPromises.setTimeout(2000);
 
-        void Pricecheck.requestCheck(this.sku)
+        void Pricecheck.requestCheck(this.sku, this.bot.schema.getName(SKU.fromString(this.sku)))
             .then(() => {
                 this.submitted++;
                 this.success++;

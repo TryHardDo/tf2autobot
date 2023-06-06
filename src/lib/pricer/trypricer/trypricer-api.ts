@@ -33,7 +33,7 @@ export default class TryPricerApi {
     ): Promise<T> {
         if (!headers) {
             headers = {
-                'Pricer-Auth-Key': this.pricerDetails.pricerApiToken
+                'X-Auth-Token': this.pricerDetails.pricerApiToken
             };
         }
 

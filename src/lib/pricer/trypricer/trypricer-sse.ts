@@ -1,11 +1,11 @@
-import ReconnectingEventSource from 'reconnecting-eventsource';
 import { GetItemPriceResponse, PricerOptions } from 'src/classes/IPricer';
 import log from '../../../lib/logger';
+import EventSource from 'eventsource';
 
 export type EventBasedPriceUpdate = GetItemPriceResponse;
 
 export default class EventSourceHandler {
-    private sse?: ReconnectingEventSource;
+    private sse?: EventSource;
 
     private options: PricerOptions;
 
@@ -14,18 +14,18 @@ export default class EventSourceHandler {
     }
 
     connect(): void {
-        this.sse = new ReconnectingEventSource(
-            this.options.pricerUrl + '/sse?token=' + encodeURIComponent(this.options.pricerApiToken)
+        this.sse = new EventSource(
+            this.options.pricerUrl + '/items/sse?token=' + encodeURIComponent(this.options.pricerApiToken),
         );
     }
 
     bindEvents(): void {
         this.sse.addEventListener('error', () => {
-            log.error(`Failed to open SSE tunnel to the pricer!`);
+            log.error(`Failed to connect to the pricer with SSE protocoll!`);
         });
 
         this.sse.addEventListener('open', () => {
-            log.debug('SSE tunnel opened! Ready to receive price updates!');
+            log.debug('SSE stream is opened! Ready to receive price updates!');
         });
     }
 
@@ -33,7 +33,7 @@ export default class EventSourceHandler {
         return this.sse.readyState === this.sse.CONNECTING;
     }
 
-    getSSE(): ReconnectingEventSource {
+    getSSE(): EventSource {
         return this.sse;
     }
 

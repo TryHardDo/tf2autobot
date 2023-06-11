@@ -63,21 +63,21 @@ export default class TryPricerApi {
                 })
                 .catch((err: AxiosError) => {
                     if (err) {
-                        reject('Failed to call API for TryPricer! ' + err.message);
+                        reject('Failed to call API for TryPricer! ' + err.message + ' ' + JSON.stringify(err.config));
                     }
                 });
         });
     }
 
     async requestPriceCheck(reqPayload: PriceRequestPayload): Promise<RequestCheckResponse> {
-        return this.callApi('POST', `api/prices/${reqPayload.item}`);
+        return this.callApi('POST', `/items/${reqPayload.item}`, {sku: reqPayload.sku});
     }
 
     async getPriceForItem(reqPayload: PriceRequestPayload): Promise<GetItemPriceResponse> {
-        return this.callApi('GET', `api/prices/${reqPayload.item}`);
+        return this.callApi('GET', `/items/${reqPayload.item}`, {sku: reqPayload.sku});
     }
 
     async getPricedItems(): Promise<GetPricelistResponse> {
-        return this.callApi('GET', `api/prices`);
+        return this.callApi('GET', `/items`);
     }
 }

@@ -15,11 +15,8 @@ export default class TryPricer implements IPricer {
 
     private readonly sse: EventSourceHandler;
 
-    public constructor() {
-        this.pricerOptions = {
-            pricerUrl: '',
-            pricerApiToken: ''
-        };
+    public constructor(options: PricerOptions) {
+        this.pricerOptions = options;
 
         this.apiManager = new TryPricerApi(this.pricerOptions);
         this.sse = new EventSourceHandler(this.pricerOptions);
@@ -48,9 +45,6 @@ export default class TryPricer implements IPricer {
     }
 
     connect(enabled: boolean): void {
-        if (enabled) {
-            this.sse.connect();
-        }
     }
 
     shutdown(enabled: boolean): void {
@@ -61,19 +55,18 @@ export default class TryPricer implements IPricer {
 
     init(enabled: boolean): void {
         if (enabled) {
+            this.sse.connect();
             this.sse.bindEvents();
         }
     }
 
     bindHandlePriceEvent(onPriceChange: (item: GetItemPriceResponse) => void): void {
-        this.sse.getSSE().addEventListener('message', (msg: MessageEvent) => {
-            const parsed = JSON.parse(msg.data as string) as GetItemPriceResponse;
+        this.sse.getSSE().addEventListener('priceUpdate', (msg: MessageEvent) => {
+            const item = JSON.parse(msg.data as string) as GetItemPriceResponse;
 
-            log.info(parsed);
+            log.debug(`Price update received from SSE service! Item: ${item.sku}`);
 
-            if (parsed) {
-                onPriceChange(parsed);
-            }
+            onPriceChange(item);
         });
     }
 

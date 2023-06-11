@@ -23,6 +23,9 @@ import log from '../../lib/logger';
 import { testPriceKey } from '../../lib/tools/export';
 import axios, { AxiosError } from 'axios';
 import filterAxiosError from '@tf2autobot/filter-axios-error';
+import Pricelist, { Entry } from '../Pricelist';
+import { strict } from 'assert';
+import { itemName } from 'src/lib/tools/replace';
 
 type Instant = 'buy' | 'b' | 'sell' | 's';
 type CraftUncraft = 'craftweapon' | 'uncraftweapon';
@@ -103,6 +106,16 @@ export default class Commands {
 
         if (checkMessage > 1 && !isAdmin) {
             return this.bot.sendMessage(steamID, "⛔ Don't spam");
+        }
+
+        let lowerCasedMsg = message.toLocaleLowerCase();
+        if (lowerCasedMsg.startsWith('buy') || lowerCasedMsg.startsWith('sell')) {
+            const [intent, ...itemParts] = message.split('_');
+            const itemName = itemParts.join(' ');
+
+            this.buyOrSellCommand(steamID, itemName, intent as Instant, null);
+
+            return;
         }
 
         if (message.startsWith(prefix)) {
@@ -439,7 +452,7 @@ export default class Commands {
 
     // Instant item trade
 
-    private buyOrSellCommand(steamID: SteamID, message: string, command: Instant, prefix: string): void {
+    private buyOrSellCommand(steamID: SteamID, message: string, command: Instant, prefix?: string): void {
         const opt = this.bot.options.commands[command === 'b' ? 'buy' : command === 's' ? 'sell' : command];
 
         if (!opt.enable) {
@@ -449,9 +462,15 @@ export default class Commands {
             }
         }
 
+        // I set null for prefix when using quick buy string
+        let msg = message;
+        if (prefix !== null) {
+            msg = CommandParser.removeCommand(message);
+        }
+
         const info = getItemAndAmount(
             steamID,
-            CommandParser.removeCommand(message),
+            msg,
             this.bot,
             prefix,
             command === 'b' ? 'buy' : command === 's' ? 'sell' : command

@@ -423,7 +423,7 @@ export default class Pricelist extends EventEmitter {
         if (entry.autoprice && !entry.isPartialPriced && !isBulk) {
             // skip this part if autoprice is false and/or isPartialPriced is true
             const price: GetItemPriceResponse = await this.priceSource
-                .getPrice(entry.sku, this.bot.schema.getName(SKU.fromString(entry.sku), false))
+                .getPrice(entry.sku, this.bot.schema.getName(SKU.fromString(entry.sku), true))
                 .catch(err => {
                     throw new Error(
                         `Unable to get current prices for ${entry.sku}: ${
@@ -529,7 +529,7 @@ export default class Pricelist extends EventEmitter {
     async getItemPrices(sku: string): Promise<ParsedPrice | null> {
         try {
             return await this.priceSource
-                .getPrice(sku, this.bot.schema.getName(SKU.fromString(sku)))
+                .getPrice(sku, this.bot.schema.getName(SKU.fromString(sku), true))
                 .then(response => new ParsedPrice(response));
         } catch (err) {
             const errStringify = JSON.stringify(err);

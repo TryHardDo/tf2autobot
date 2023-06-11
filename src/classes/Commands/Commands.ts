@@ -108,9 +108,15 @@ export default class Commands {
             return this.bot.sendMessage(steamID, "⛔ Don't spam");
         }
 
-        let lowerCasedMsg = message.toLocaleLowerCase();
-        if (lowerCasedMsg.startsWith('buy') || lowerCasedMsg.startsWith('sell')) {
-            const [intent, ...itemParts] = message.split('_');
+        if (message.startsWith('buy') || message.startsWith('sell')) {
+            const ncStr = 'Non_Craftable';
+
+            let replaced = message;
+            if (replaced.includes(ncStr)) {
+                replaced = replaced.replace(ncStr, 'Non-Craftable')
+            }
+
+            const [intent, ...itemParts] = replaced.split('_');
             const itemName = itemParts.join(' ');
 
             this.buyOrSellCommand(steamID, itemName, intent as Instant, null);

@@ -22,6 +22,8 @@ export function parseJSON(json: string): UnknownDictionaryKnownValues | null {
 export function generateQuickActionString(itemName: string, intent: 'buy' | 'sell'): string {
     const formattedName = itemName.split(' ')
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join('_');
+        .join('_')
+        .replace(/non-craftable/ig, "Non_Craftable");
+
     return `${intent === 'buy' ? 'sell' : 'buy'}_${formattedName}`;
 }

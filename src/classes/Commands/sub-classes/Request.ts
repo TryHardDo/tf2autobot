@@ -41,7 +41,7 @@ export default class RequestCommands {
         }
 
         void this.priceSource
-            .requestCheck(sku, this.bot.schema.getName(SKU.fromString(sku), false))
+            .requestCheck(sku, this.bot.schema.getName(SKU.fromString(sku), true))
             .then((body: RequestCheckResponse) => {
                 if (!body) {
                     this.bot.sendMessage(steamID, '❌ Error while requesting price check (returned null/undefined)');
@@ -118,7 +118,7 @@ export default class RequestCommands {
 
         const name = this.bot.schema.getName(SKU.fromString(sku));
         try {
-            const price = await this.priceSource.getPrice(sku, name);
+            const price = await this.priceSource.getPrice(sku, this.bot.schema.getName(SKU.fromString(sku), true));
             const currBuy = new Currencies(price.buy);
             const currSell = new Currencies(price.sell);
 

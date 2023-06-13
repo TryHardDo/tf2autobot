@@ -70,11 +70,11 @@ export default class TryPricerApi {
     }
 
     async requestPriceCheck(reqPayload: PriceRequestPayload): Promise<RequestCheckResponse> {
-        return this.callApi('POST', `/items/${reqPayload.item}`, {sku: reqPayload.sku});
+        return this.callApi('POST', `/items/${reqPayload.item}`, { sku: reqPayload.sku });
     }
 
     async getPriceForItem(reqPayload: PriceRequestPayload): Promise<GetItemPriceResponse> {
-        return this.callApi('GET', `/items/${reqPayload.item}`, {sku: reqPayload.sku});
+        return this.callApi('GET', `/items/${reqPayload.item}`, { sku: reqPayload.sku });
     }
 
     async getPricedItems(): Promise<GetPricelistResponse> {

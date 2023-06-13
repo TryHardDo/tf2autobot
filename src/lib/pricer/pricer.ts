@@ -5,7 +5,6 @@ import TryPricer from './trypricer/trypricer-pricer';
 
 export function getPricer(options: PricerOptions): IPricer {
     if (options.pricerUrl !== '') {
-        console.log('Pricer options: ' + JSON.stringify(options));
         return new TryPricer(options);
     } else {
         const api = new PricesTfApi();

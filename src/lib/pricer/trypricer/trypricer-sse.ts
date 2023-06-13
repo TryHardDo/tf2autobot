@@ -15,7 +15,7 @@ export default class EventSourceHandler {
 
     connect(): void {
         this.sse = new EventSource(
-            this.options.pricerUrl + '/items/sse?token=' + encodeURIComponent(this.options.pricerApiToken),
+            this.options.pricerUrl + '/items/sse?token=' + encodeURIComponent(this.options.pricerApiToken)
         );
     }
 

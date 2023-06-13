@@ -44,8 +44,7 @@ export default class TryPricer implements IPricer {
         return this.sse.isConnecting;
     }
 
-    connect(enabled: boolean): void {
-    }
+    connect(enabled: boolean): void {}
 
     shutdown(enabled: boolean): void {
         if (enabled) {

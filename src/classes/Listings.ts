@@ -6,7 +6,7 @@ import * as timersPromises from 'timers/promises';
 import Bot from './Bot';
 import Pricelist, { Entry, PricesObject } from './Pricelist';
 import log from '../lib/logger';
-import { exponentialBackoff, generateQuickActionString } from '../lib/helpers';
+import { exponentialBackoff } from '../lib/helpers';
 import { noiseMakers } from '../lib/data';
 import { DictItem } from './Inventory';
 import { PaintedNames } from './Options';
@@ -652,7 +652,7 @@ export default class Listings {
             return details
                 .replace(/%price%/g, isShowBoldOnPrice ? boldDetails(price, style) : price)
                 .replace(/%name%/g, entry.id ?? entry.name)
-                .replace(/%quickCmd%/g, generateQuickActionString(entry.name, key))
+                .replace(/%quickCmd%/g, this.bot.helper.getEasyCopyPasteStr(entry.name, key)) // Get easy copy paste string
                 .replace(/%max_stock%/g, isShowBoldOnMaxStock ? boldDetails(maxStock, style) : maxStock)
                 .replace(/%current_stock%/g, isShowBoldOnCurrentStock ? boldDetails(currentStock, style) : currentStock)
                 .replace(/%amount_trade%/g, isShowBoldOnAmount ? boldDetails(amountTrade, style) : amountTrade);

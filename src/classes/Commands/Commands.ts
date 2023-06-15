@@ -108,19 +108,23 @@ export default class Commands {
             return this.bot.sendMessage(steamID, "⛔ Don't spam");
         }
 
-        if (message.startsWith('buy') || message.startsWith('sell')) {
-            const ncStr = 'Non_Craftable';
+        if (message.startsWith('buy_')) {
+            this.buyOrSellCommand(
+                steamID,
+                this.bot.helper.getNormalizedItemName(message.replace('buy_', '')),
+                'buy' as Instant,
+                null
+            );
+            return;
+        }
 
-            let replaced = message;
-            if (replaced.includes(ncStr)) {
-                replaced = replaced.replace(ncStr, 'Non-Craftable')
-            }
-
-            const [intent, ...itemParts] = replaced.split('_');
-            const itemName = itemParts.join(' ');
-
-            this.buyOrSellCommand(steamID, itemName, intent as Instant, null);
-
+        if (message.startsWith('sell_')) {
+            this.buyOrSellCommand(
+                steamID,
+                this.bot.helper.getNormalizedItemName(message.replace('sell_', '')),
+                'sell' as Instant,
+                null
+            );
             return;
         }
 

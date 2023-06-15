@@ -49,6 +49,7 @@
         "discord.js": "^14.7.1",
         "dot-prop": "^6.0.1",
         "dotenv": "^16.0.3",
+        "easycopypaste": "github:TryHardDo/EasyCopyStrings",
         "eventsource": "^2.0.2",
         "express": "^4.18.2",
         "isobject": "^4.0.0",

@@ -52,12 +52,15 @@ import IPricer from './IPricer';
 import { EventEmitter } from 'events';
 import { Blocked } from './MyHandler/interfaces';
 import filterAxiosError from '@tf2autobot/filter-axios-error';
+import Helper from '../lib/helpers';
 
 export default class Bot {
     // Modules and classes
     schema: SchemaManager.Schema;
 
     readonly bptf: BptfLogin;
+
+    readonly helper: Helper;
 
     readonly tf2: TF2;
 
@@ -192,6 +195,7 @@ export default class Bot {
         });
 
         this.bptf = new BptfLogin();
+        this.helper = new Helper();
         this.tf2 = new TF2(this.client);
         this.friends = new Friends(this);
         this.groups = new Groups(this);

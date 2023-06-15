@@ -1,3 +1,4 @@
+import EasyCopyPaste from 'easycopypaste';
 import { UnknownDictionaryKnownValues } from '../types/common';
 
 export function exponentialBackoff(n: number, base = 1000): number {
@@ -11,19 +12,23 @@ export function parseJSON(json: string): UnknownDictionaryKnownValues | null {
         return null;
     }
 }
+export default class Helper {
+    private readonly ecp = new EasyCopyPaste('mapped_item_names.json', '../files');
 
-/**
- * Utility method for generating quick buy and sell string for listing notes
- * on backpack.tf.
- * @param itemName The item's extracted name
- * @param intent The intent of the listing in our side
- * @returns A quick buy string
- */
-export function generateQuickActionString(itemName: string, intent: 'buy' | 'sell'): string {
-    const formattedName = itemName.split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join('_')
-        .replace(/non-craftable/ig, "Non_Craftable");
+    public getEasyCopyPasteStr(itemName: string, intent: 'buy' | 'sell'): string {
+        let intentStr = '';
+        if (intent === 'buy') {
+            intentStr = 'sell_';
+        } else {
+            intentStr = 'buy_';
+        }
 
-    return `${intent === 'buy' ? 'sell' : 'buy'}_${formattedName}`;
+        const easyCopyPasteString = this.ecp.toEasyCopyPasteString(itemName);
+
+        return `${intentStr}${easyCopyPasteString}`;
+    }
+
+    public getNormalizedItemName(easyCopyPasteString: string): string {
+        return this.ecp.fromEasyCopyPasteString(easyCopyPasteString);
+    }
 }

@@ -13,7 +13,7 @@ export function parseJSON(json: string): UnknownDictionaryKnownValues | null {
     }
 }
 export default class Helper {
-    private readonly ecp = new EasyCopyPaste('mapped_item_names.json', '../files');
+    private readonly ecp = new EasyCopyPaste();
 
     public getEasyCopyPasteStr(itemName: string, intent: 'buy' | 'sell'): string {
         let intentStr = '';

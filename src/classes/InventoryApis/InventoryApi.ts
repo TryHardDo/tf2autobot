@@ -4,6 +4,7 @@ import { UnknownDictionary, UnknownDictionaryKnownValues } from 'src/types/commo
 import SteamID from 'steamid';
 import CEconItem from '@tf2autobot/steamcommunity/classes/CEconItem';
 import { EconItem } from '@tf2autobot/tradeoffer-manager';
+import log from '../../lib/logger';
 
 import Bot from '../Bot';
 
@@ -71,6 +72,8 @@ export default class InventoryApi {
                 }
             }).then(
                 response => {
+                    log.debug('Req url: ' + response.config.url);
+
                     const result = response.data as GetUserInventoryContentsResult;
 
                     if (response.status === 403 && result === null) {

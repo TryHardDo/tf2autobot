@@ -6,8 +6,6 @@ import IPricer, {
 } from 'src/classes/IPricer';
 import TryPricerApi, { PriceRequestPayload } from './trypricer-api';
 import EventSourceHandler from './trypricer-sse';
-import log from '../../../lib/logger';
-
 export default class TryPricer implements IPricer {
     private readonly apiManager: TryPricerApi;
 
@@ -62,9 +60,6 @@ export default class TryPricer implements IPricer {
     bindHandlePriceEvent(onPriceChange: (item: GetItemPriceResponse) => void): void {
         this.sse.getSSE().addEventListener('priceUpdate', (msg: MessageEvent) => {
             const item = JSON.parse(msg.data as string) as GetItemPriceResponse;
-
-            log.debug(`Price update received from SSE service! Item: ${item.sku}`);
-
             onPriceChange(item);
         });
     }

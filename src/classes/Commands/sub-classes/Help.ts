@@ -19,7 +19,7 @@ export default class HelpCommands {
                     '\n- ' +
                     [
                         `${prefix}help - Get a list of commands.`,
-                        `how2trade - Guide on how to trade with the bot.`,
+                        `usage - Guide on how to trade with the bot.`,
                         `links - Links to the bot's Steam, Backpack.tf, and Rep.tf.`,
                         `price [amount] <name> - Get the price and stock of an item.`,
                         `sku <Full Item Name|Item's sku> - Get the sku of an item.`,
@@ -47,12 +47,12 @@ export default class HelpCommands {
                     : '\n- ' +
                       [
                           `${prefix}help - Get a list of commands`,
-                          `how2trade - Guide on how to trade with the bot`,
+                          `usage - Guide on how to trade with the bot`,
                           `price [amount] <name> - Get the price and stock of an item 💲📦\n\n✨=== Instant item trade ===✨`,
                           `buy [amount] <name> - Instantly buy an item 💲`,
                           `sell [amount] <name> - Instantly sell an item 💲\n\n✨=== Multiple items trade ===✨`,
-                          `buycart [amount] <name> - Add an item you want to buy to your cart 🛒`,
-                          `sellcart [amount] <name> - Add an item you want to sell to your cart 🛒`,
+                          `buybulk [amount] <name> - Add an item you want to buy to your cart 🛒`,
+                          `sellbulk [amount] <name> - Add an item you want to sell to your cart 🛒`,
                           `cart - View your cart 🛒`,
                           `clearcart - Clear your cart ❎🛒`,
                           `checkout - Have the bot send an offer with the items in your cart ✅🛒\n\n✨=== Trade actions ===✨`,

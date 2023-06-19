@@ -131,7 +131,7 @@ export default class Commands {
         if (message.startsWith(prefix)) {
             if (command === 'help') {
                 void this.help.helpCommand(steamID, prefix);
-            } else if (command === 'how2trade') {
+            } else if (command === 'usage' || command === 'how2trade') {
                 this.help.howToTradeCommand(steamID, prefix);
             } else if (['price', 'pc'].includes(command)) {
                 this.priceCommand(steamID, message, prefix);
@@ -140,12 +140,12 @@ export default class Commands {
                     return this.bot.sendMessage(steamID, '❌ Command not available.');
                 }
                 this.buyOrSellCommand(steamID, message, command as Instant, prefix);
-            } else if (command === 'buycart') {
+            } else if (command === 'buycart' || command == 'buybulk') {
                 if (isInvalidType) {
                     return this.bot.sendMessage(steamID, '❌ Command not available.');
                 }
                 this.buyCartCommand(steamID, message, prefix);
-            } else if (command === 'sellcart') {
+            } else if (command === 'sellcart' || command == 'sellbulk') {
                 if (isInvalidType) {
                     return this.bot.sendMessage(steamID, '❌ Command not available.');
                 }

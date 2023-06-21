@@ -32,3 +32,11 @@ export default class Helper {
         return this.ecp.fromEasyCopyPasteString(easyCopyPasteString);
     }
 }
+
+/** used to signal {@link https://axios-http.com/docs/cancellation|Cancellation} */
+export function axiosAbortSignal(timeoutMs: number) {
+    const abortController = new AbortController();
+    setTimeout(() => abortController.abort(), timeoutMs || 0);
+
+    return abortController.signal;
+}

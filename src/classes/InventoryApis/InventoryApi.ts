@@ -66,6 +66,7 @@ export default class InventoryApi {
         function get(inventory: EconItem[], currency: EconItem[], start?: string) {
             void axios({
                 url: apiCallURL,
+                timeout: 30000,
                 params: {
                     ...apiCallParams,
                     start_assetid: start

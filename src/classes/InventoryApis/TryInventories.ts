@@ -8,10 +8,13 @@ export default class TryInventories extends InventoryApi {
     }
 
     protected getURLAndParams(
-        steamID64: string,
-        appID: number,
-        contextID: string
+        steamId: string,
+        appId: number,
+        contextId: string
     ): [string, UnknownDictionaryKnownValues] {
-        return [`http://localhost:5000/inventory/${this.getApiKey()}`, { steamID64, appID, contextID }];
+        return [
+            `https://inventories.trytrading.eu/inventory/${steamId}/${appId}/${contextId}`,
+            { apiKey: this.getApiKey() }
+        ];
     }
 }

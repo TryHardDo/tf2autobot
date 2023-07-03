@@ -5,12 +5,13 @@ import Bot from './Bot';
 import InventoryApi from './InventoryApis/InventoryApi';
 import SteamSupply from './InventoryApis/SteamSupply';
 import SteamApis from './InventoryApis/SteamApis';
+import TryInventories from './InventoryApis/TryInventories';
 
 export default class InventoryGetter {
     private readonly inventoryApis: InventoryApi[];
 
     constructor(private readonly bot: Bot) {
-        this.inventoryApis = [new SteamSupply(this.bot), new SteamApis(this.bot)];
+        this.inventoryApis = [new SteamSupply(this.bot), new SteamApis(this.bot), new TryInventories(this.bot)];
     }
 
     getUserInventoryContents(

@@ -26,11 +26,10 @@
                 "MPTF_API_KEY": "",
                 "DISCORD_BOT_TOKEN": "",
                 "STEAMSUPPLY_API_KEY": "",
+                "TRYINVENTORIES_API_KEY": "",
                 "STEAMAPIS_API_KEY": "",
 
-                "ADMINS": [
-                    { "steam": "<your steamid 64>", "discord": null }
-                ],
+                "ADMINS": [{ "steam": "<your steamid 64>", "discord": null }],
                 "KEEP": ["<steamid of person to keep in friendslist>"],
                 "ITEM_STATS_WHITELIST": [],
                 "GROUPS": ["103582791469033930"],

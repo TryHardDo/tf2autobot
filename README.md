@@ -1,4 +1,4 @@
-# TF2Autobot
+# TF2Autobot extended with TryInventories
 
 <div align="center"><a href="https://autobot.tf/"><img src="https://user-images.githubusercontent.com/47635037/100915844-e05e7380-350f-11eb-96f1-6d61141c4a44.png" alt="TF2Autobot" style="display: block; margin-left: auto; margin-right: auto;"></a></div>
 

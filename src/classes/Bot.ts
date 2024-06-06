@@ -43,7 +43,8 @@ import IPricer from './IPricer';
 import { EventEmitter } from 'events';
 import { Blocked } from './MyHandler/interfaces';
 import filterAxiosError from '@tf2autobot/filter-axios-error';
-import Helper, { axiosAbortSignal } from '../lib/helpers';
+import { axiosAbortSignal } from '../lib/helpers';
+import EasyCopyPaste from 'easycopypaste';
 
 export interface SteamTokens {
     refreshToken: string;
@@ -171,9 +172,7 @@ export default class Bot {
 
     public periodicCheckAdmin: NodeJS.Timeout;
 
-    readonly helper: Helper;
-
-    constructor(public readonly botManager: BotManager, public options: Options, readonly priceSource: IPricer) {
+    constructor(public readonly botManager: BotManager, public options: Options, readonly priceSource: IPricer, readonly ecp: EasyCopyPaste) {
         this.botManager = botManager;
 
         this.client = new SteamUser();
@@ -190,12 +189,15 @@ export default class Bot {
             assetCacheMaxItems: 50
         });
 
-        this.helper = new Helper();
         this.bptf = new BptfLogin();
         this.tf2 = new TF2(this.client);
         this.friends = new Friends(this);
         this.groups = new Groups(this);
         this.trades = new Trades(this);
+
+        // Todo: Implement options
+        this.ecp = new EasyCopyPaste();
+
         this.listings = new Listings(this);
         this.tf2gc = new TF2GC(this);
 

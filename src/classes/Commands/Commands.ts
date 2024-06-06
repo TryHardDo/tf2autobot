@@ -300,11 +300,9 @@ export default class Commands {
                 );
             }
         } else {
-            // Will be called if the message is not starting with the cmd prefix char
-            // and the message contains underscores.
-            if (message.includes('_')) {
-                const desc = this.bot.helper.getEasyCopyPasteDescriptor(message);
-                this.buyOrSellCommand(steamID, desc.itemName, desc.command as Instant, null, true);
+            if (message.toLowerCase().startsWith('buy_') || message.toLocaleLowerCase().startsWith('sell_')) {
+                const intentDescriptor = this.bot.ecp.reverseEcpStr(message);
+                this.buyOrSellCommand(steamID, intentDescriptor.originalItemName, intentDescriptor.decodedIntent as Instant, null, true);
             }
         }
     }

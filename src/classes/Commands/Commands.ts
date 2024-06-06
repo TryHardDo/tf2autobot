@@ -300,7 +300,7 @@ export default class Commands {
                 );
             }
         } else {
-            if (message.toLowerCase().startsWith('buy_') || message.toLocaleLowerCase().startsWith('sell_')) {
+            if (message.includes('_')) {
                 const intentDescriptor = this.bot.ecp.reverseEcpStr(message);
                 this.buyOrSellCommand(steamID, intentDescriptor.originalItemName, intentDescriptor.decodedIntent as Instant, null, true);
             }

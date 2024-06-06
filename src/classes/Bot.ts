@@ -172,7 +172,9 @@ export default class Bot {
 
     public periodicCheckAdmin: NodeJS.Timeout;
 
-    constructor(public readonly botManager: BotManager, public options: Options, readonly priceSource: IPricer, readonly ecp: EasyCopyPaste) {
+    readonly ecp: EasyCopyPaste;
+
+    constructor(public readonly botManager: BotManager, public options: Options, readonly priceSource: IPricer) {
         this.botManager = botManager;
 
         this.client = new SteamUser();
@@ -189,14 +191,14 @@ export default class Bot {
             assetCacheMaxItems: 50
         });
 
+        // Todo: Implement options
+        this.ecp = new EasyCopyPaste();
+
         this.bptf = new BptfLogin();
         this.tf2 = new TF2(this.client);
         this.friends = new Friends(this);
         this.groups = new Groups(this);
         this.trades = new Trades(this);
-
-        // Todo: Implement options
-        this.ecp = new EasyCopyPaste();
 
         this.listings = new Listings(this);
         this.tf2gc = new TF2GC(this);

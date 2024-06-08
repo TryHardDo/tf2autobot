@@ -67,6 +67,10 @@ export const DEFAULTS: JsonOptions = {
         prefixes: {
             steam: '!',
             discord: '!'
+        },
+        ecp: {
+            useBoldChars: false,
+            useWordSwap: true
         }
     },
 
@@ -1220,11 +1224,17 @@ interface MiscSettings {
     reputationCheck?: ReputationCheck;
     pricecheckAfterTrade?: OnlyEnable;
     prefixes?: Prefixes;
+    ecp?: EcpSettings;
 }
 
 interface Prefixes {
     steam?: string;
     discord?: string;
+}
+
+interface EcpSettings {
+    useBoldChars?: boolean;
+    useWordSwap?: boolean;
 }
 
 export interface ReputationCheck {

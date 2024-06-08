@@ -191,8 +191,15 @@ export default class Bot {
             assetCacheMaxItems: 50
         });
 
-        // Todo: Implement options
+        // ECP --START--
         this.ecp = new EasyCopyPaste();
+        const ecpSettings = options.miscSettings.ecp;
+
+        if (ecpSettings) {
+            this.ecp.useBoldChars = ecpSettings.useBoldChars ?? false;
+            this.ecp.useWordSwap = ecpSettings.useWordSwap ?? true;
+        }
+        // ECP --END--
 
         this.bptf = new BptfLogin();
         this.tf2 = new TF2(this.client);

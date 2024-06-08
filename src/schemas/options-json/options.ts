@@ -513,7 +513,8 @@ export const optionsSchema: jsonschema.Schema = {
                         useWordSwap: {
                             type: 'boolean'
                         }
-                    }
+                    },
+                    additionalProperties: false
                 }
             },
             required: [

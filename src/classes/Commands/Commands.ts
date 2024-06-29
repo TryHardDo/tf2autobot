@@ -304,10 +304,19 @@ export default class Commands {
                 const intentDescriptor = this.bot.ecp.reverseEcpStr(message);
 
                 if (intentDescriptor === undefined) {
-                    return this.bot.sendMessage(steamID, 'Item could not be decoded. Please use the standard !buy or !sell command!');
+                    return this.bot.sendMessage(
+                        steamID,
+                        'Item could not be decoded. Please use the standard !buy or !sell command!'
+                    );
                 }
 
-                this.buyOrSellCommand(steamID, intentDescriptor.originalItemName, intentDescriptor.decodedIntent as Instant, null, true);
+                this.buyOrSellCommand(
+                    steamID,
+                    intentDescriptor.originalItemName,
+                    intentDescriptor.decodedIntent as Instant,
+                    null,
+                    true
+                );
             }
         }
     }

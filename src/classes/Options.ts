@@ -39,6 +39,9 @@ export const DEFAULTS: JsonOptions = {
             enable: true,
             withUncraft: true
         },
+        itemsOnBothSides: {
+            enable: true
+        },
         checkUses: {
             duel: true,
             noiseMaker: true
@@ -635,7 +638,8 @@ export const DEFAULTS: JsonOptions = {
             failedToCounter: '',
             takingItemsWithIntentBuy: '',
             givingItemsWithIntentSell: '',
-            containsKeysOnBothSides: ''
+            containsKeysOnBothSides: '',
+            containsItemsOnBothSides: ''
         },
         accepted: {
             automatic: {
@@ -1217,6 +1221,7 @@ interface MiscSettings {
     sendGroupInvite?: OnlyEnable;
     skipItemsInTrade?: OnlyEnable;
     weaponsAsCurrency?: WeaponsAsCurrency;
+    itemsOnBothSides?: OnlyEnable;
     checkUses?: CheckUses;
     game?: Game;
     alwaysRemoveItemAttributes?: AlwaysRemoveItemAttributes;
@@ -1780,6 +1785,7 @@ interface DeclineNote {
     takingItemsWithIntentBuy?: string;
     givingItemsWithIntentSell?: string;
     containsKeysOnBothSides?: string;
+    containsItemsOnBothSides?: string;
 }
 
 interface AcceptedNote {

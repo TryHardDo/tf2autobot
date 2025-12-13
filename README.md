@@ -1,4 +1,31 @@
-# TF2Autobot
+# AutobotNEXT
+AutobotNEXT is a fork of TF2Autobot, focused on performance, maintainability, and features requested by the community—designed and validated using real-world trading scenarios.
+
+**Key goals of this fork:**
+
+- Single-line installation and updates
+- Fully Docker-based architecture with isolated environments
+- Codebase cleanup and optimization, removing unnecessary or legacy fragments
+- Correct and transparent profit calculation and tracking
+- Migration from file-based storage to a database, with a planned public API for external integrations
+- Modular architecture and plugin framework, enabling add-on development without modifying core code
+- Complete rework of currency math for transparency, safety, and consistency
+- Native integration of [Bliss’s pricer](https://github.com/TF2-Price-DB/bliss-autopricer) as the default pricing source
+- Redesigned custom pricer API
+
+**Vision:**
+
+I started this project with the goal of building a top-tier, free trading solution for the TF2 community.
+
+Rather than creating an entirely new platform in a different language (which I have already done in C#), I chose to build on the existing ecosystem and contribute back—working in TypeScript even though it is not my primary preference.
+
+This fork is not meant to replace or undermine the original TF2Autobot project. The intention is to improve, modernize, and experiment in a way that can later be merged back into the legacy codebase if the community agrees that it adds real value.
+
+There are no hard deadlines and no rush. The focus is on code quality, efficiency, and long-term maintainability. Every improvement—no matter how small—makes the project stronger.
+
+Contributions are welcome, especially from those who value clean architecture, correctness, and thoughtful design.
+
+## Legacy TF2Autobot
 
 <div align="center"><a href="https://autobot.tf/"><img src="https://user-images.githubusercontent.com/47635037/100915844-e05e7380-350f-11eb-96f1-6d61141c4a44.png" alt="TF2Autobot" style="display: block; margin-left: auto; margin-right: auto;"></a></div>
 
